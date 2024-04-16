@@ -18,14 +18,14 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->string('password');
             $table->integer('type');
-            $table->foreignId('practice_id');
+            $table->foreignId('practice_id')->nullable();
             $table->foreignId('practitioner_id')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });
 
         
-
+        
         Schema::create('password_reset_tokens', function (Blueprint $table) {
             $table->string('email')->primary();
             $table->string('token');

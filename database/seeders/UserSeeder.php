@@ -2,11 +2,12 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
-use Illuminate\Database\Eloquent\Factories\Sequence;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Database\Seeder;
 use App\Models\User;
+use App\Models\Practice;
+use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Database\Eloquent\Factories\Sequence;
+use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
 class UserSeeder extends Seeder
 {
@@ -22,7 +23,10 @@ class UserSeeder extends Seeder
         $users = User::factory()
             ->count(10)
             ->state(new Sequence(
-                fn (Sequence $sequence) => ['practitioner_id' => User::select('id')->inRandomOrder()->first()->id],
+                fn (Sequence $sequence) => [
+                    'practitioner_id' => User::select('id')->inRandomOrder()->first()->id,
+                    'practice_id' => Practice::select('id')->inRandomOrder()->first()->id
+                ],
             ))
             ->create([
                 'type' => 2,
