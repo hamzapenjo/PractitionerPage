@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\FieldsOfPractice;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -15,7 +16,9 @@ class DatabaseSeeder extends Seeder
     {
         $this->call([
             PracticeSeeder::class,
-            UserSeeder::class
+            UserSeeder::class,
+            FieldsOfPracticeSeeder::class,
+            PracticeFieldsOfPracticeSeeder::class
         ]);
     }
 }
