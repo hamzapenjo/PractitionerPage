@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Providers;
-
+use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -17,8 +17,15 @@ class AppServiceProvider extends ServiceProvider
     /**
      * Bootstrap any application services.
      */
+
     public function boot(): void
     {
-        //
+        $this->registerMiddlewareAliases();
+    }
+
+    protected function registerMiddlewareAliases()
+    {
+        Route::aliasMiddleware('practitioner', \App\Http\Middleware\PractitionerMiddleware::class);
+        Route::aliasMiddleware('client', \App\Http\Middleware\ClientMiddleware::class);
     }
 }
