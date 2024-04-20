@@ -31,11 +31,11 @@ class Practice extends Model
     public function users(): HasMany
     {
         return $this->hasMany(User::class, 'practice_id');
-
     }
 
     public function fieldsOfPractice()
     {
         return $this->belongsToMany(FieldsOfPractice::class);
     }
+
 }
