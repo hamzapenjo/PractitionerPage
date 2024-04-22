@@ -8,6 +8,12 @@ use Illuminate\Http\Request;
 class DashboardController extends Controller
 {
     public function index() {
-        return view('client.dashboard');
-      }
+
+      $user = auth()->user();
+      $data['practitioner'] = $user->practicioner;
+      $data['practice'] = $user->practicioner->practice;
+      $data['fields1'] = $data['practice']->fieldsOfPractice;
+      // dd($fields1);
+      return view('client.dashboard', $data);
+    }
 }
