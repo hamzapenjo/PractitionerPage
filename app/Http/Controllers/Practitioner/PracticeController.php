@@ -13,8 +13,8 @@ class PracticeController extends Controller
     public function showPractice()
     {
         $user = auth()->user();
-        $practice = $user->practice;
-        $fields = $practice->fieldsOfPractice;
-        return view('practitioner.practice', ['practice'=>$practice], ['fields'=>$fields]);
+        $data['practice'] = $user->practice;
+        $data['fields'] = $data['practice']->fieldsOfPractice;
+        return view('practitioner.practice', $data);
     }
 }

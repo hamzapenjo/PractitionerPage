@@ -59,5 +59,10 @@ class User extends Authenticatable
     {
         return $this->belongsTo(Practice::class, 'practice_id');
     }
+
+    public function practicioner(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'practitioner_id');
+    }
     
 }
