@@ -12,13 +12,16 @@
                     @if ($clients->isEmpty())
                         <div>No clients found.</div>
                     @else
+                        <a href="{{ route('add-client') }}" class="inline-block px-4 py-2 bg-blue-500 text-white font-semibold rounded-md shadow-md hover:bg-blue-700 focus:outline-none focus:ring focus:ring-blue-300">New Client</a>
+                        <br><br>
                         <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
                             <thead class="bg-gray-50 dark:bg-gray-700">
                                 <tr>
                                     <th class="px-6 py-3 text-left text-m font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">First Name</th>
                                     <th class="px-6 py-3 text-left text-m font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Last Name</th>
                                     <th class="px-6 py-3 text-left text-m font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Email</th>
-
+                                    <th class="px-6 py-3 text-left text-m font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider"></th>
+                                    <th class="px-6 py-3 text-left text-m font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider"></th>
                                 </tr>
                             </thead>
                             <tbody class=" dark:divide-gray-700">
@@ -29,7 +32,16 @@
                                         <td class="px-6 py-4">{{ $client->email }}</td>
                                         <td class="px-6 py-4">
                                             <a href="{{ route('client-show', ['id' => $client->id]) }}" class="inline-block px-4 py-2 bg-blue-500 text-white font-semibold rounded-md shadow-md hover:bg-blue-700 focus:outline-none focus:ring focus:ring-blue-300">View</a>
+                                            <a href="{{ route('edit-client', ['id' => $client->id]) }}" class="inline-block px-4 py-2 bg-blue-500 text-white font-semibold rounded-md shadow-md hover:bg-blue-700 focus:outline-none focus:ring focus:ring-blue-300">Edit</a>
                                         </td>
+                                        <td class="px-6 py-4">
+                                            <form name="delete-client" id="delete-client" method="post" action="{{route('delete-client', ['id'=> $client->id]) }}">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button>Delete</button>
+                                            </form>
+                                        </td>
+                                    
                                     </tr>
                                 @endforeach
                             </tbody>
