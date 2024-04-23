@@ -3,10 +3,13 @@
 namespace App\Http\Controllers\Practitioner;
 
 use App\Models\User;
+use App\Models\Practice;
 use Illuminate\Http\Request;
-use App\Http\Requests\EditRequest;
-use App\Http\Requests\StoreRequest;
+use App\Models\FieldsOfPractice;
 
+use App\Http\Requests\EditRequest;
+use Illuminate\Support\Facades\DB;
+use App\Http\Requests\StoreRequest;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use function PHPUnit\Framework\isEmpty;
@@ -76,6 +79,26 @@ class PractitionerClientController extends Controller
         return redirect()->back();
     }
 
+    public function addField()
+    {
+        return view('practitioner.add-field');
+    }
+
+    public function storeField(Request $request)
+    {
+        $ime = $request->input('name');
+        $field = FieldsOfPractice::firstOrCreate(['name' => $ime]);
+
+        $field_id = $field->id;
+        $practice_id = auth()->user()->practice_id;
+
+        $n = [
+            'practice_id' => $practice_id,
+            'fields_of_practice_id' => $field_id
+        ];
+
+        DB::table('fields_of_practice_practice')->insert($n);
     
-        
+        return redirect()->back();
+    }
 }
