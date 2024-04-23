@@ -4,9 +4,11 @@ namespace App\Http\Controllers\Practitioner;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use App\Http\Requests\EditRequest;
+use App\Http\Requests\StoreRequest;
+
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
-
 use function PHPUnit\Framework\isEmpty;
 use Symfony\Component\Console\Input\Input;
 
@@ -33,17 +35,16 @@ class PractitionerClientController extends Controller
         return view('practitioner.add-client');
     }
 
-    public function storeClient(Request $request)
+    public function storeClient(StoreRequest $request)
     {
         $user = new User();
-        $user->first_name = $request->input('first-name');
-        $user->last_name = $request->input('last-name');
+        $user->first_name = $request->input('first_name');
+        $user->last_name = $request->input('last_name');
         $user->email = $request->input('email');
         $user->password = $request->input('password');
         $user->type = 2;
         $user->practitioner_id = auth()->user()->id;
         $user->save();
-
         return redirect()->back();
     }
 
@@ -54,11 +55,11 @@ class PractitionerClientController extends Controller
         return view('practitioner.edit-client', ['user'=>$user]);
     }
 
-    public function storeEdit($id, Request $request)
+    public function storeEdit($id, EditRequest $request)
     {
         $user = User::findOrFail($id);
-        $user->first_name = $request->input('first-name');
-        $user->last_name = $request->input('last-name');
+        $user->first_name = $request->input('first_name');
+        $user->last_name = $request->input('last_name');
         $user->email = $request->input('email');
 
         if ($request->password) {
