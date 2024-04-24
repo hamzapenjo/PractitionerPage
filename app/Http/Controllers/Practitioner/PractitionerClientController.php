@@ -10,10 +10,13 @@ use App\Models\FieldsOfPractice;
 use App\Http\Requests\EditRequest;
 use Illuminate\Support\Facades\DB;
 use App\Http\Requests\StoreRequest;
+use function Laravel\Prompts\error;
 use App\Http\Controllers\Controller;
+
 use Illuminate\Support\Facades\Hash;
 use function PHPUnit\Framework\isEmpty;
 use Symfony\Component\Console\Input\Input;
+use Illuminate\Validation\ValidationException;
 
 class PractitionerClientController extends Controller
 {
@@ -96,9 +99,13 @@ class PractitionerClientController extends Controller
             'practice_id' => $practice_id,
             'fields_of_practice_id' => $field_id
         ];
-
-        DB::table('fields_of_practice_practice')->insert($n);
-    
+        $existing = DB::table('fields_of_practice_practice')->where('practice_id', $practice_id)->where('fields_of_practice_id', $field_id)->first();
+        if(!$existing) {
+            DB::table('fields_of_practice_practice')->insert($n);
+        }
+        else {
+            throw ValidationException::withMessages(['name' => 'Already exists']);
+        }
         return redirect()->back();
     }
 }
