@@ -4,6 +4,7 @@
             {{ __('Add Field') }}
         </h2>
     </x-slot>
+
     @if ($errors->any())
     <div class="alert alert-danger">
         <ul>

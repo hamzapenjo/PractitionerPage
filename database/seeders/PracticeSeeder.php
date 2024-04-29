@@ -16,7 +16,7 @@ class PracticeSeeder extends Seeder
 
      public function run()
     {
-        Practice::factory()->count(10)->create();
+        Practice::factory()->count(1000)->create();
     }
 }
 

@@ -13,7 +13,6 @@ class DashboardController extends Controller
       $data['practitioner'] = $user->practicioner;
       $data['practice'] = $user->practicioner->practice;
       $data['fields1'] = $data['practice']->fieldsOfPractice;
-      // dd($fields1);
       return view('client.dashboard', $data);
     }
 }
