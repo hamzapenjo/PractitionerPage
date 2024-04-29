@@ -14,6 +14,10 @@
                             <a href="{{ route('client-dashboard') }}">
                                 <x-application-logo class="block h-9 w-auto fill-current text-gray-800 dark:text-gray-200" />
                             </a>
+                        @elseif (auth()->user()->type === 3)
+                            <a href="{{ route('admin-dashboard') }}">
+                                <x-application-logo class="block h-9 w-auto fill-current text-gray-800 dark:text-gray-200" />
+                            </a>
                         @endif
                     @endauth
                 </div>
@@ -34,6 +38,10 @@
                          @elseif (auth()->user()->type === 2)
                             <x-nav-link :href="route('client-dashboard')">
                                 {{ __('Client Dashboard') }}
+                            </x-nav-link>
+                        @elseif (auth()->user()->type === 3)
+                            <x-nav-link :href="route('admin-dashboard')">
+                                {{ __('Admin Dashboard') }}
                             </x-nav-link>
                         @endif
                     @endauth

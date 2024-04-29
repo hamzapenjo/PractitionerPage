@@ -36,6 +36,10 @@
                                     <x-nav-link :href="route('client-dashboard')">
                                         {{ __('Client Dashboard') }}
                                     </x-nav-link>
+                                @elseif (auth()->user()->type === 3)
+                                    <x-nav-link :href="route('admin-dashboard')">
+                                        {{ __('Admin Dashboard') }}
+                                    </x-nav-link>
                                 @endif
                                 @else
                                     <a

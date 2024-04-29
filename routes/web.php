@@ -1,14 +1,16 @@
 <?php
 
-
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\AdminPracticesController;
 use App\Http\Controllers\Practitioner\PracticeController;
 use App\Http\Controllers\Practitioner\PostClientController;
+use App\Http\Controllers\Admin\DashboardController as AdminDashboardController;
 use App\Http\Controllers\Client\DashboardController as ClientDashboardController;
 use App\Http\Controllers\Practitioner\DashboardController as PractitionerDashboardController;
 use App\Http\Controllers\Practitioner\PractitionerClientController as PractitionerClientController;
-
+use App\Http\Requests\AdminPracticeStore;
 
 Route::get('/', function () {
     return view('welcome');
@@ -34,7 +36,17 @@ Route::prefix('practitioners')->middleware(['auth', 'practitioner'])->group(func
 });
 Route::get('/client-dashboard', [ClientDashboardController::class, 'index'])->name('client-dashboard')->middleware(['auth', 'client']);
 
+Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {
+    Route::get('/dashboard', [AdminDashboardController::class, 'index'])->name('admin-dashboard');
+    Route::get('/practices', [AdminPracticesController::class, 'showPractice'])->name('admin-practice')->middleware('auth', 'admin');
+    Route::get('practices/add-practice', [AdminPracticesController::class, 'addPractices'])->name('add-practice')->middleware('auth', 'admin');
+    Route::post('practices/store-practice', [AdminPracticesController::class, 'storePractices'])->name('store-practice')->middleware('auth', 'admin');
+    Route::get('/practices/show-practice/{id}', [AdminPracticesController::class, 'showSinglePractice'])->name('show-practice')->middleware('auth', 'admin');
+    Route::get('/practices/{id}/edit-practice', [AdminPracticesController::class, 'editPractice'])->name('edit-practice')->middleware(['auth', 'admin']);
+    Route::put('/practices/{id}/update-practice', [AdminPracticesController::class, 'storeEdit'])->name('store-edit')->middleware(['auth', 'admin']);
+    Route::delete('/practices/{id}/delete-practice', [AdminPracticesController::class, 'deletePractice'])->name('delete-practice')->middleware(['auth', 'admin']);
 
+});
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
