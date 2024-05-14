@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Admin;
 use User;
 use App\Models\Practice;
 use Illuminate\Http\Request;
+use App\Models\FieldsOfPractice;
+use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\AdminEditRequest;
 use App\Http\Requests\AdminPracticeStore;
@@ -18,7 +20,7 @@ class AdminPracticesController extends Controller
         //  dd($practices);
         return view('admin.practice', ['practices' => $practices]);
         
-      }
+    }
 
     public function addPractices() {
       view()->share('activePage', 'practices');
@@ -48,7 +50,10 @@ class AdminPracticesController extends Controller
     {
       view()->share('activePage', 'practices');
       $practice = Practice::find($id);
-      return view('admin.edit-practice', ['practice'=>$practice]);
+      $fields = $practice->fieldsOfPractice;
+
+      return view('admin.edit-practice', ['practice'=>$practice], ['fields'=>$fields]);
+    
     }
 
     public function storeEdit($id, AdminEditRequest $request)

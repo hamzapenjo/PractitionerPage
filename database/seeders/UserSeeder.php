@@ -16,7 +16,7 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
-        $practitioners = User::factory()->count(1000)
+        $practitioners = User::factory()->count(15)
         ->state(new Sequence(
             fn (Sequence $sequence) => [
                 'practice_id' => Practice::select('id')->inRandomOrder()->first()->id,
@@ -27,7 +27,7 @@ class UserSeeder extends Seeder
         ]);
         
         $users = User::factory()
-            ->count(1000)
+            ->count(15)
             ->state(new Sequence(
                 fn (Sequence $sequence) => [
                     'practitioner_id' => User::select('id')->inRandomOrder()->first()->id,

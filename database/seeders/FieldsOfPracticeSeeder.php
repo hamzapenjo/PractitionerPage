@@ -13,7 +13,7 @@ class FieldsOfPracticeSeeder extends Seeder
      */
     public function run(): void
     {
-        FieldsOfPractice::factory()->count(1000)->create();
+        FieldsOfPractice::factory()->count(15)->create();
     }
 }
 

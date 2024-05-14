@@ -91,7 +91,6 @@ class PractitionerClientController extends Controller
     {
         $ime = $request->input('name');
         $field = FieldsOfPractice::firstOrCreate(['name' => $ime]);
-
         $field_id = $field->id;
         $practice_id = auth()->user()->practice_id;
 
