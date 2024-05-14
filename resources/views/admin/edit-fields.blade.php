@@ -26,38 +26,23 @@
   @endif
   <div class="card card-user">
     <div class="card-header">
-      <h5 class="card-title">Add Practice</h5>
+      <h5 class="card-title">Edit Fields of Practice</h5>
     </div>
     <div class="card-body">
-      <form name="add-practice-form" id="add-practice-form" method="post" action="{{route('store-practice')}}">
+      <form name="edit-field-form" id="edit-field-form" method="post" action="{{route('store-field-edit', ['id'=> $field->id]) }}" class="w-full">
         @csrf
+        @method('PUT')
         <div class="row">
           <div class="col-md-12 pr-1">
             <div class="form-group">
               <label>Name</label>
-              <input type="text" class="form-control" placeholder="Name" id="name" name="name">
-            </div>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-md-12 pr-1">
-            <div class="form-group">
-              <label>Email</label>
-              <input type="email" class="form-control" placeholder="Email" id="email" name="email">
-            </div>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-md-12 pr-1">
-            <div class="form-group">
-              <label>Website URL</label>
-              <input type="url" class="form-control" placeholder="URL" id="website_url" name="website_url">
+              <input type="text" class="form-control" placeholder="Name" id="name" name="name" value="{{ $field->name }}">
             </div>
           </div>
         </div>
         <div class="row">
           <div class="update ml-auto mr-auto">
-            <button type="submit" class="btn btn-primary btn-round">Add practice</button>
+            <button type="submit" class="btn btn-primary btn-round">Edit Field</button>
           </div>
         </div>
       </form>

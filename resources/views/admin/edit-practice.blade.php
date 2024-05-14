@@ -56,7 +56,6 @@
             </div>
           </div>
         </div>
-
         <div class="row">
           <div class="update ml-auto mr-auto">
             <button type="submit" class="btn btn-primary btn-round">Edit practice</button>
@@ -65,8 +64,42 @@
       </form>
     </div>
   </div>
+
+
+
+
+
+  <div class="card card-user">
+    <div class="card-header">
+      <h5 class="card-title">Add Field of Practice</h5>
+    </div>
+    <div class="card-body">
+        <div class="row">
+          <div class="col-md-12 pr-1">
+            <div class="form-group">
+              <label>Name</label>
+              @foreach ($fields as $field)
+              <li>
+                {{$field->name}}
+              </li>
+              @endforeach
+            </div>
+          </div>
+        </div>
+      <div class="row">
+        <div class="update ml-auto mr-auto">
+          <a href="{{route('add-field-practice', ['id'=> $practice->id])}}" class="btn btn-primary btn-round">Add field</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+  
 </div>
-</div>
-</div>
+
+
+
 
 @endsection

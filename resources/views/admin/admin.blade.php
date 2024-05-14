@@ -54,10 +54,10 @@
               <p>Fields of practice</p>
             </a>
           </li>
-          <li class="{{ $activePage == 'clients' ? 'active' : '' }}">
-            <a href="{{ route('admin-clients') }}">
-              <i class="nc-icon nc-bullet-list-67"></i>
-              <p>Clients</p>
+          <li>
+            <a href="javascript:;">
+              <i class="nc-icon nc-pin-3"></i>
+              <p>Third Item</p>
             </a>
           </li>
         </ul>
