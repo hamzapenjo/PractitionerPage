@@ -21,8 +21,8 @@ class AdminClientsController extends Controller
 
     public function addClient() {
         view()->share('activePage', 'clients');
-  
-        return view('admin.add-client');
+        $practitioners = User::where('practitioner_id', null)->get();
+        return view('admin.add-client', ['practitioners'=>$practitioners]);
     }
   
     public function storeClient(AdminClientStore $request)
@@ -50,8 +50,8 @@ class AdminClientsController extends Controller
     {
       view()->share('activePage', 'clients');
       $client = User::find($id);
-
-      return view('admin.edit-client', ['client'=>$client]);
+      $practitioners = User::where('practitioner_id', null)->get();
+      return view('admin.edit-client', ['client'=>$client], ['practitioners'=>$practitioners]);
     
     }
 

@@ -35,7 +35,7 @@
           <div class="col-md-12 pr-1">
             <div class="form-group">
               <label>First Name</label>
-              <input type="text" class="form-control" placeholder="First Name" id="first_name" name="first_name">
+              <input type="text" class="form-control" placeholder="First Name" id="first_name" name="first_name" value="{{ old('first_name') }}">
             </div>
           </div>
         </div>
@@ -43,7 +43,7 @@
           <div class="col-md-12 pr-1">
             <div class="form-group">
               <label>Last Name</label>
-              <input type="text" class="form-control" placeholder="Last Name" id="last_name" name="last_name">
+              <input type="text" class="form-control" placeholder="Last Name" id="last_name" name="last_name" value="{{ old('last_name') }}">
             </div>
           </div>
         </div>
@@ -51,15 +51,20 @@
           <div class="col-md-12 pr-1">
             <div class="form-group">
               <label>Email</label>
-              <input type="email" class="form-control" placeholder="Email" id="email" name="email">
+              <input type="email" class="form-control" placeholder="Email" id="email" name="email" value="{{ old('email') }}">
             </div>
           </div>
         </div>
         <div class="row">
           <div class="col-md-12 pr-1">
             <div class="form-group">
-              <label>Practitioner ID</label>
-              <input type="number" class="form-control" placeholder="ID" id="practitioner_id" name="practitioner_id">
+              <label>Practitioner</label>
+              <select class="selectpicker form-control" id="practitioner_id" name="practitioner_id" data-live-search="true">
+                <option disabled selected>Select Practitioner</option>
+                @foreach ($practitioners as $practitioner)
+                <option value="{{$practitioner->id}}" {{ old('practitioner_id') == $practitioner->id ? 'selected' : '' }}>{{$practitioner->first_name}} {{$practitioner->last_name}}</option>
+                @endforeach
+              </select>
             </div>
           </div>
         </div>

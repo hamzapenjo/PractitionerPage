@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
-use User;
+use App\Models\User;
 use App\Models\Practice;
 use Illuminate\Http\Request;
 use App\Models\FieldsOfPractice;
@@ -73,6 +73,16 @@ class AdminPracticesController extends Controller
     public function deletePractice($id)
     {
         $practice = Practice::findOrFail($id);
+        $practitioners = User::where('practice_id', $id)->get();
+        foreach ($practitioners as $practitioner) {
+            $clients = User::where('practitioner_id', $practitioner->id)->get();
+            if (count($clients)) {
+                foreach($clients as $client) {
+                    $client->delete();
+                }
+            }
+            $practitioner->delete();
+        }
         $practice->delete();
         return redirect()->back()->with('message',"Practice deleted successfully");
     }

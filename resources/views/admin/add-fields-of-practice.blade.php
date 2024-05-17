@@ -35,7 +35,7 @@
           <div class="col-md-12 pr-1">
             <div class="form-group">
               <label>Name</label>
-              <input type="text" class="form-control" placeholder="Name" id="name" name="name">
+              <input type="text" class="form-control" placeholder="Name" id="name" name="name" value="{{ old('name') }}">
             </div>
           </div>
         </div>
@@ -47,8 +47,6 @@
       </form>
     </div>
   </div>
-</div>
-</div>
 </div>
 
 @endsection
