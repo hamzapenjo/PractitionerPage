@@ -6,7 +6,7 @@ use App\Models\User;
 use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
 
-class AdminClientStore extends FormRequest
+class AdminPractitionerStore extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -27,7 +27,8 @@ class AdminClientStore extends FormRequest
             'first_name' => 'required',
             'last_name' => 'required',
             'email' => ['required','email', Rule::unique('users')->ignore($this->id)],
-            
+            'practices' => 'required',
+            'password' => 'required'
         ];
     }
 }

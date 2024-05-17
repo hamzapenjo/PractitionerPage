@@ -1,20 +1,21 @@
 <?php
 
-use App\Http\Controllers\Admin\AdminClientsController;
-use App\Http\Controllers\Admin\AdminFieldsOfPracticeController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Requests\AdminClientStore;
+use App\Http\Requests\AdminFieldsStore;
+use App\Http\Requests\AdminPracticeStore;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\AdminClientsController;
 use App\Http\Controllers\Admin\AdminPracticesController;
 use App\Http\Controllers\Practitioner\PracticeController;
 use App\Http\Controllers\Practitioner\PostClientController;
+use App\Http\Controllers\Admin\AdminPractitionersController;
+use App\Http\Controllers\Admin\AdminFieldsOfPracticeController;
 use App\Http\Controllers\Admin\DashboardController as AdminDashboardController;
 use App\Http\Controllers\Client\DashboardController as ClientDashboardController;
 use App\Http\Controllers\Practitioner\DashboardController as PractitionerDashboardController;
 use App\Http\Controllers\Practitioner\PractitionerClientController as PractitionerClientController;
-use App\Http\Requests\AdminClientStore;
-use App\Http\Requests\AdminFieldsStore;
-use App\Http\Requests\AdminPracticeStore;
 
 Route::get('/', function () {
     return view('welcome');
@@ -69,6 +70,13 @@ Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {
     Route::put('/clients/{id}/update-client', [AdminClientsController::class, 'storeEditClient'])->name('store-edit-client')->middleware(['auth', 'admin']);
     Route::delete('/clients/{id}/delete-client', [AdminClientsController::class, 'deleteClient'])->name('delete-client')->middleware(['auth', 'admin']);
 
+    Route::get('/practitioners', [AdminPractitionersController::class, 'showPractitioners'])->name('admin-practitioners')->middleware('auth', 'admin');
+    Route::get('/practitioners/add-practitioner', [AdminPractitionersController::class, 'addPractitioner'])->name('add-practitioner')->middleware('auth', 'admin');
+    Route::post('/practitioners/store-practitioner', [AdminPractitionersController::class, 'storePractitioner'])->name('store-practitioner')->middleware('auth', 'admin');
+    Route::get('/practitioners/show-practitioner/{id}', [AdminPractitionersController::class, 'showSinglePractitioner'])->name('show-practitioner')->middleware('auth', 'admin');
+    Route::get('/practitioners/{id}/edit-practitioner', [AdminPractitionersController::class, 'editPractitioner'])->name('edit-practitioner')->middleware(['auth', 'admin']);
+    Route::put('/practitioners/{id}/update-practitioner', [AdminPractitionersController::class, 'storeEditPractitioner'])->name('store-edit-practitioner')->middleware(['auth', 'admin']);
+    Route::delete('/practitioners/{id}/delete-practitioner', [AdminPractitionersController::class, 'deletePractitioner'])->name('delete-practitioner')->middleware(['auth', 'admin']);
 });
 
 Route::middleware('auth')->group(function () {

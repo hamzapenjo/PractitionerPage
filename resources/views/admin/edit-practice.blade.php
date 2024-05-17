@@ -36,7 +36,7 @@
           <div class="col-md-12 pr-1">
             <div class="form-group">
               <label>Name</label>
-              <input type="text" class="form-control" placeholder="Name" id="name" name="name" value="{{ $practice->name }}">
+              <input type="text" class="form-control" placeholder="Name" id="name" name="name" value="{{ old('name', $practice->name) }}">
             </div>
           </div>
         </div>
@@ -44,7 +44,7 @@
           <div class="col-md-12 pr-1">
             <div class="form-group">
               <label>Email</label>
-              <input type="email" class="form-control" placeholder="Email" id="email" name="email" value="{{ $practice->email }}">
+              <input type="email" class="form-control" placeholder="Email" id="email" name="email" value="{{ old('email', $practice->email) }}">
             </div>
           </div>
         </div>
@@ -52,7 +52,7 @@
           <div class="col-md-12 pr-1">
             <div class="form-group">
               <label>Website URL</label>
-              <input type="url" class="form-control" placeholder="URL" id="website_url" name="website_url" value="{{ $practice->website_url }}">
+              <input type="url" class="form-control" placeholder="URL" id="website_url" name="website_url" value="{{ old('website_url', $practice->website_url) }}">
             </div>
           </div>
         </div>
@@ -65,41 +65,29 @@
     </div>
   </div>
 
-
-
-
-
   <div class="card card-user">
     <div class="card-header">
       <h5 class="card-title">Add Field of Practice</h5>
     </div>
     <div class="card-body">
+      <form name="add-field-practice-form" id="add-field-practice-form" method="post" action="{{route('store-field-practice', ['id'=> $practice->id]) }}" class="w-full">
+        @csrf
         <div class="row">
           <div class="col-md-12 pr-1">
             <div class="form-group">
               <label>Name</label>
-              @foreach ($fields as $field)
-              <li>
-                {{$field->name}}
-              </li>
-              @endforeach
+              <input type="text" class="form-control" placeholder="Name" id="name" name="name">
             </div>
           </div>
         </div>
-      <div class="row">
-        <div class="update ml-auto mr-auto">
-          <a href="{{route('add-field-practice', ['id'=> $practice->id])}}" class="btn btn-primary btn-round">Add field</a>
+        <div class="row">
+          <div class="update ml-auto mr-auto">
+            <button type="submit" class="btn btn-primary btn-round">Add field</button>
+          </div>
         </div>
-      </div>
+      </form>
     </div>
   </div>
-
-
-
-  
 </div>
-
-
-
 
 @endsection
