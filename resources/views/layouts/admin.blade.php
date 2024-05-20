@@ -108,9 +108,12 @@
                   </p>
                 </a>
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
-                  <a class="dropdown-item" href="#">Action</a>
-                  <a class="dropdown-item" href="#">Another action</a>
-                  <a class="dropdown-item" href="#">Something else here</a>
+                  <form method="POST" action="{{ route('logout') }}">
+                    @csrf
+                    <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault(); this.closest('form').submit();">
+                      Log Out
+                    </a>
+                  </form>
                 </div>
               </li>
             </ul>
@@ -135,8 +138,12 @@
     'resources/js/plugins/perfect-scrollbar.jquery.min.js',
     'resources/js/plugins/chartjs.min.js',
     'resources/js/plugins/bootstrap-notify.js',
-    'resources/js/paper-dashboard.min.js?v=2.0.1'
+    'resources/js/paper-dashboard.min.js?v=2.0.1',
+    'resources/js/admin-client.js'
     ])
 </body>
 
 </html>
+
+
+

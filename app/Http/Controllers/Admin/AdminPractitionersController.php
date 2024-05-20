@@ -27,10 +27,15 @@ class AdminPractitionersController extends Controller
   
     public function storePractitioner(AdminPractitionerStore $request)
     {
+        $firstName = strtolower($request->input('first_name'));
+        $lastName = strtolower($request->input('last_name'));
+        $randomNumber = rand(1, 1000);
+        $generatedEmail = "{$firstName}.{$lastName}{$randomNumber}@example.com";
+
         $practitioner = new User();
         $practitioner->first_name = $request->input('first_name');
         $practitioner->last_name = $request->input('last_name');
-        $practitioner->email = $request->input('email');
+        $practitioner->email = $generatedEmail;
         $practitioner->practice_id = $request->input('practices');
         $practitioner->password = Hash::make('password');
         $practitioner->type = 1;

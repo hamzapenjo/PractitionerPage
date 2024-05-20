@@ -12,7 +12,7 @@
                     @if ($clients->isEmpty())
                         <div>No clients found.</div>
                     @else
-                        <a href="{{ route('add-client') }}" class="inline-block px-4 py-2 bg-blue-500 text-white font-semibold rounded-md shadow-md hover:bg-blue-700 focus:outline-none focus:ring focus:ring-blue-300">New Client</a>
+                        <a href="{{ route('add-client-practitioner') }}" class="inline-block px-4 py-2 bg-blue-500 text-white font-semibold rounded-md shadow-md hover:bg-blue-700 focus:outline-none focus:ring focus:ring-blue-300">New Client</a>
                         <br><br>
                         <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
                             <thead class="bg-gray-50 dark:bg-gray-700">
@@ -32,7 +32,7 @@
                                         <td class="px-6 py-4">{{ $client->email }}</td>
                                         <td class="px-6 py-4">
                                             <a href="{{ route('client-show', ['id' => $client->id]) }}" class="inline-block px-4 py-2 bg-blue-500 text-white font-semibold rounded-md shadow-md hover:bg-blue-700 focus:outline-none focus:ring focus:ring-blue-300">View</a>
-                                            <a href="{{ route('edit-client', ['id' => $client->id]) }}" class="inline-block px-4 py-2 bg-blue-500 text-white font-semibold rounded-md shadow-md hover:bg-blue-700 focus:outline-none focus:ring focus:ring-blue-300">Edit</a>
+                                            <a href="{{ route('edit-client-practitioner', ['id' => $client->id]) }}" class="inline-block px-4 py-2 bg-blue-500 text-white font-semibold rounded-md shadow-md hover:bg-blue-700 focus:outline-none focus:ring focus:ring-blue-300">Edit</a>
                                         </td>
                                         <td class="px-6 py-4">
                                             <form name="delete-client" id="delete-client" method="post" action="{{route('delete-client', ['id'=> $client->id]) }}">
