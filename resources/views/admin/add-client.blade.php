@@ -70,14 +70,11 @@
         </div>
         <div class="row">
           <div class="update ml-auto mr-auto">
-            <button type="submit" class="btn btn-primary btn-round">Add client</button>
+            <button type="submit" class="btn btn-primary btn-round">Add Client</button>
           </div>
         </div>
       </form>
     </div>
   </div>
 </div>
-</div>
-</div>
-
 @endsection

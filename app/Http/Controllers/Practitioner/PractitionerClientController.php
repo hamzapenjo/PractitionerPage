@@ -36,7 +36,7 @@ class PractitionerClientController extends Controller
         }
     }
 
-    public function addClient()
+    public function addClientPractitioner()
     {
         return view('practitioner.add-client');
     }
@@ -54,7 +54,7 @@ class PractitionerClientController extends Controller
         return redirect()->back();
     }
 
-    public function editClient($id)
+    public function editClientPractitioner($id)
     {
         $user = User::find($id);
         

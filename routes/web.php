@@ -21,17 +21,14 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
 
 
 Route::prefix('practitioners')->middleware(['auth', 'practitioner'])->group(function () {
     Route::get('/dashboard', [PractitionerDashboardController::class, 'index'])->name('practitioner-dashboard');
     Route::get('/clients', [PractitionerClientController::class, 'showClients'])->name('practitioner-clients');
-    Route::get('/clients/add-client', [PractitionerClientController::class, 'addClient'])->name('add-client')->middleware(['auth', 'practitioner']);
+    Route::get('/clients/add-client', [PractitionerClientController::class, 'addClientPractitioner'])->name('add-client-practitioner')->middleware(['auth', 'practitioner']);
     Route::post('/clients/store-client', [PractitionerClientController::class, 'storeClient'])->name('store-client')->middleware(['auth', 'practitioner']);
-    Route::get('/clients/{id}/edit-client', [PractitionerClientController::class, 'editClient'])->name('edit-client')->middleware(['auth', 'practitioner']);
+    Route::get('/clients/{id}/edit-client', [PractitionerClientController::class, 'editClientPractitioner'])->name('edit-client-practitioner')->middleware(['auth', 'practitioner']);
     Route::put('/clients/{id}/update-client', [PractitionerClientController::class, 'storeEdit'])->name('store-edit')->middleware(['auth', 'practitioner']);
     Route::delete('/clients/{id}/delete-client', [PractitionerClientController::class, 'deleteClient'])->name('delete-client')->middleware(['auth', 'practitioner']);
     Route::get('/practices', [PracticeController::class, 'showPractice'])->name('practice')->middleware('auth', 'practitioner');

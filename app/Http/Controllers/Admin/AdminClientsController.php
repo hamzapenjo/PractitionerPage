@@ -27,10 +27,15 @@ class AdminClientsController extends Controller
   
     public function storeClient(AdminClientStore $request)
     {
+        $firstName = strtolower($request->input('first_name'));
+        $lastName = strtolower($request->input('last_name'));
+        $randomNumber = rand(1, 1000);
+        $generatedEmail = "{$firstName}.{$lastName}{$randomNumber}@example.com";
+
         $client = new User();
         $client->first_name = $request->input('first_name');
         $client->last_name = $request->input('last_name');
-        $client->email = $request->input('email');
+        $client->email = $generatedEmail;
         $client->practitioner_id = $request->input('practitioner_id');
         $client->password = Hash::make('password');
         $client->type = 2;
