@@ -27,10 +27,10 @@ Route::prefix('practitioners')->middleware(['auth', 'practitioner'])->group(func
     Route::get('/dashboard', [PractitionerDashboardController::class, 'index'])->name('practitioner-dashboard');
     Route::get('/clients', [PractitionerClientController::class, 'showClients'])->name('practitioner-clients');
     Route::get('/clients/add-client', [PractitionerClientController::class, 'addClientPractitioner'])->name('add-client-practitioner')->middleware(['auth', 'practitioner']);
-    Route::post('/clients/store-client', [PractitionerClientController::class, 'storeClient'])->name('store-client')->middleware(['auth', 'practitioner']);
+    Route::post('/clients/store-client', [PractitionerClientController::class, 'storeClient'])->name('store-client-practitioner')->middleware(['auth', 'practitioner']);
     Route::get('/clients/{id}/edit-client', [PractitionerClientController::class, 'editClientPractitioner'])->name('edit-client-practitioner')->middleware(['auth', 'practitioner']);
-    Route::put('/clients/{id}/update-client', [PractitionerClientController::class, 'storeEdit'])->name('store-edit')->middleware(['auth', 'practitioner']);
-    Route::delete('/clients/{id}/delete-client', [PractitionerClientController::class, 'deleteClient'])->name('delete-client')->middleware(['auth', 'practitioner']);
+    Route::put('/clients/{id}/update-client', [PractitionerClientController::class, 'storeEditClient'])->name('store-edit-client-practitioner')->middleware(['auth', 'practitioner']);
+    Route::delete('/clients/{id}/delete-client', [PractitionerClientController::class, 'deleteClientPractitioner'])->name('delete-client-practitioner')->middleware(['auth', 'practitioner']);
     Route::get('/practices', [PracticeController::class, 'showPractice'])->name('practice')->middleware('auth', 'practitioner');
     Route::get('/practices/add-field', [PractitionerClientController::class, 'addField'])->name('add-field')->middleware(['auth', 'practitioner']);
     Route::post('/practices/store-field', [PractitionerClientController::class, 'storeField'])->name('store-field')->middleware(['auth', 'practitioner']);
@@ -74,6 +74,9 @@ Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {
     Route::get('/practitioners/{id}/edit-practitioner', [AdminPractitionersController::class, 'editPractitioner'])->name('edit-practitioner')->middleware(['auth', 'admin']);
     Route::put('/practitioners/{id}/update-practitioner', [AdminPractitionersController::class, 'storeEditPractitioner'])->name('store-edit-practitioner')->middleware(['auth', 'admin']);
     Route::delete('/practitioners/{id}/delete-practitioner', [AdminPractitionersController::class, 'deletePractitioner'])->name('delete-practitioner')->middleware(['auth', 'admin']);
+});
+Route::get('/test', function(){
+    return view('layouts.dashboard');
 });
 
 Route::middleware('auth')->group(function () {

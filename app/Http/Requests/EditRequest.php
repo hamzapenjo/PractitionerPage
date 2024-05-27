@@ -25,7 +25,7 @@ class EditRequest extends FormRequest
         return [
             'first_name' => 'required',
             'last_name' => 'required',
-            'email' => ['required','email', Rule::unique('users')->ignore($this->id)],
+            'email' => ['required','email', Rule::unique('users')],
         ];
     }
 }

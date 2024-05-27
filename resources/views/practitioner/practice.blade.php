@@ -1,27 +1,27 @@
-<x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-            {{ __('Dashboard - Practices Info') }}
-        </h2>
-    </x-slot>
+@extends('layouts.dashboard')
 
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 text-gray-900 dark:text-gray-100">
-                    <a href="{{ route('add-field') }}" class="inline-block px-4 py-2 bg-blue-500 text-white font-semibold rounded-md shadow-md hover:bg-blue-700 focus:outline-none focus:ring focus:ring-blue-300">New Field</a>
-                    <br><br>
-                    <h3 class="font-semibold text-lg mb-3">{{ $practice->name }}</h3>
-                    <p class="text-gray-500 dark:text-gray-300 mb-3">{{ $practice->description }}</p>
-                    <ul>
+@section('section')
+    <div class="container-fluid py-4">
+        <div class="row">
+            <div class="col-12">
+                <div class="card my-4">
+                    <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
+                        <div class="bg-gradient-primary shadow-primary border-radius-lg pt-4 pb-3 d-flex align-items-center justify-content-between px-3">
+                            <h6 class="text-white text-capitalize ps-3">Practices Info</h6>
+                            <a class="btn bg-gradient-success mb-0 toast-btn" href="{{ route('add-field') }}">New Field</a>
+                        </div>
+                    </div>
+                    <ul class="align-items-center mb-0 pt-4 pb-4">
+                        <li class="list-group-item border-0 ps-0 pt-0 text-lg"><strong class="text-dark">Practice Name:</strong> &nbsp; {{$practice->name}}
+                        </li>
                         @foreach ($fields as $field)
-                            <li class="mb-3">
-                                <span class="font-medium text-gray-500 dark:text-gray-300">{{ $field->name }} </span>
-                            </li>
-                        @endforeach
+                        <li class="list-group-item border-0 ps-0 pt-0 text-sm">
+                            <strong class="text-dark"> Field of Practice:</strong> &nbsp; {{$field->name}}
+                        </li>
+                    @endforeach
                     </ul>
                 </div>
             </div>
         </div>
     </div>
-</x-app-layout>
+@endsection

@@ -1,33 +1,39 @@
 <?php
 
 namespace App\Http\Controllers\Practitioner;
-
 use App\Models\User;
 use App\Models\Practice;
 use Illuminate\Http\Request;
 use App\Models\FieldsOfPractice;
-
 use App\Http\Requests\EditRequest;
 use Illuminate\Support\Facades\DB;
+
 use App\Http\Requests\StoreRequest;
 use function Laravel\Prompts\error;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 
 use Illuminate\Support\Facades\Hash;
 use function PHPUnit\Framework\isEmpty;
 use Symfony\Component\Console\Input\Input;
 use Illuminate\Validation\ValidationException;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 class PractitionerClientController extends Controller
 {
     public function showClients() 
     {
-        $clients = auth()->user()->clients;
+        view()->share('activePage', 'clients');
+        $clients = auth()->user()->clients()->paginate(10);
+        // dd($clients);
+
+        
         return view('practitioner.practitionerclient', ['clients' => $clients]);
     }
 
     public function showSingleClient($id)
 	{
+        view()->share('activePage', 'clients');
         try {
             $client = User::findOrFail($id);
             return view('practitioner.singleclient', compact('client'));
@@ -38,6 +44,7 @@ class PractitionerClientController extends Controller
 
     public function addClientPractitioner()
     {
+        view()->share('activePage', 'clients');
         return view('practitioner.add-client');
     }
 
@@ -51,17 +58,18 @@ class PractitionerClientController extends Controller
         $user->type = 2;
         $user->practitioner_id = auth()->user()->id;
         $user->save();
-        return redirect()->back();
+        return redirect()->back()->with('message', 'Client added successfully');
     }
 
     public function editClientPractitioner($id)
     {
+        view()->share('activePage', 'clients');
         $user = User::find($id);
         
         return view('practitioner.edit-client', ['user'=>$user]);
     }
 
-    public function storeEdit($id, EditRequest $request)
+    public function storeEditClient($id, EditRequest $request)
     {
         $user = User::findOrFail($id);
         $user->first_name = $request->input('first_name');
@@ -72,18 +80,19 @@ class PractitionerClientController extends Controller
             $user->password = $request->password;
         }
         $user->save();
-        return redirect()->back();
+        return redirect()->back()->with('message', 'Client edited successfully');
     }
 
-    public function deleteClient($id)
+    public function deleteClientPractitioner($id)
     {
         $user = User::findOrFail($id);
         $user->delete();
-        return redirect()->back();
+        return redirect()->back()->with('message',"Client deleted successfully");
     }
 
     public function addField()
     {
+        view()->share('activePage', 'practice');
         return view('practitioner.add-field');
     }
 
@@ -105,6 +114,6 @@ class PractitionerClientController extends Controller
         else {
             throw ValidationException::withMessages(['name' => 'Already exists']);
         }
-        return redirect()->back();
+        return redirect()->back()->with('message',"Field added successfully");
     }
 }

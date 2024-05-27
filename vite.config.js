@@ -22,7 +22,10 @@ export default defineConfig({
                 'resources/js/plugins/bootstrap-notify.js',
                 'resources/js/plugins/chartjs.min.js',
                 'resources/js/plugins/perfect-scrollbar.jquery.min.js',
-                'resources/scss/paper-dashboard.scss'
+                'resources/scss/paper-dashboard.scss',  
+                'resources/images',
+                'resources/js/material-dashboard.js',
+                
             ],
             refresh: true,
         }),

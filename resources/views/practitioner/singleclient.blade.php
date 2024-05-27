@@ -1,30 +1,26 @@
-<x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-            {{ __('Dashboard - Clients Info') }}
-        </h2>
-    </x-slot>
-
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 text-gray-900 dark:text-gray-100">
-                    <ul>
-                        <li class="mb-3">
-                            <span class="font-medium text-gray-500 dark:text-gray-300">ID: </span>{{ $client->id }}
+@extends('layouts.dashboard')
+@section('section')
+    <div class="container-fluid py-4">
+        <div class="row">
+            <div class="col-12">
+                <div class="card my-4">
+                    <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
+                        <div class="bg-gradient-primary shadow-primary border-radius-lg pt-4 pb-3 d-flex align-items-center justify-content-between px-3">
+                            <h6 class="text-white text-capitalize ps-3">Singe Client Info</h6>
+                        </div>
+                    </div>
+                    <ul class="align-items-center mb-0 pt-3 pb-3">
+                        <li class="list-group-item border-0 ps-0 pt-0 text-md"><strong class="text-dark">ID:</strong> &nbsp; {{$client->id}}
                         </li>
-                        <li class="mb-3">
-                            <span class="font-medium text-gray-500 dark:text-gray-300">First Name: </span>{{ $client->first_name }}
+                        <li class="list-group-item border-0 ps-0 pt-1 text-md"><strong class="text-dark">First Name</strong> &nbsp; {{$client->first_name}}
                         </li>
-                        <li class="mb-3">
-                            <span class="font-medium text-gray-500 dark:text-gray-300">Last Name: </span>{{ $client->last_name }}
+                        <li class="list-group-item border-0 ps-0 pt-1 text-md"><strong class="text-dark">Last Name</strong> &nbsp; {{$client->last_name}}
                         </li>
-                        <li class="mb-3">
-                            <span class="font-medium text-gray-500 dark:text-gray-300">Email: </span>{{ $client->email }}
+                        <li class="list-group-item border-0 ps-0 pt-1 text-md"><strong class="text-dark">Email</strong> &nbsp; {{$client->email}}
                         </li>
                     </ul>
                 </div>
             </div>
         </div>
     </div>
-</x-app-layout>
+@endsection
