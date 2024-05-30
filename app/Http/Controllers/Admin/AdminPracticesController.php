@@ -17,9 +17,7 @@ class AdminPracticesController extends Controller
     {
         view()->share('activePage', 'practices');
         $practices = Practice::paginate(10);
-        //  dd($practices);
         return view('admin.practice', ['practices' => $practices]);
-        
     }
 
     public function addPractices() {

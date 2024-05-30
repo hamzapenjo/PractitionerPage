@@ -25,8 +25,6 @@ class PractitionerClientController extends Controller
     {
         view()->share('activePage', 'clients');
         $clients = auth()->user()->clients()->paginate(10);
-        // dd($clients);
-
         
         return view('practitioner.practitionerclient', ['clients' => $clients]);
     }

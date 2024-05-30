@@ -100,29 +100,40 @@
               </div>
             </form>
             <ul class="navbar-nav">
-              <li class="nav-item btn-rotate dropdown">
-                <a class="nav-link dropdown-toggle" href="http://example.com" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  <i class="nc-icon nc-bell-55"></i>
-                  <p>
-                    <span class="d-lg-none d-md-block">Some Actions</span>
-                  </p>
-                </a>
-                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
-                  <form method="POST" action="{{ route('logout') }}">
-                    @csrf
-                    <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault(); this.closest('form').submit();">
-                      Log Out
-                    </a>
-                  </form>
-                </div>
-              </li>
+              <div class="text-grey text-center me-2 d-flex align-items-center justify-content-center">
+                <button type="button" class="btn btn-danger mb-1 btn-round" data-toggle="modal" data-target="#logoutModal">
+                    Log out
+                </button> 
             </ul>
           </div>
         </div>
       </nav>
+      
       <!-- End Navbar -->
       <div class="content">
         @yield('section')
+        <div id="logoutModal" class="modal" tabindex="-1" aria-labelledby="logoutModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+              <div class="modal-content">
+                  <div class="modal-header">
+                      <h5 class="modal-title" id="logoutModalLabel">Confirm Log out</h5>
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body">
+                      <p>Are you sure you want to log out?</p>
+                  </div>
+                  <div class="modal-footer">
+                      <form method="POST" action="{{ route('logout') }}">
+                          @csrf
+                          <button type="button" class="btn btn-info mb-1 btn-round" data-dismiss="modal">Cancel</button>
+                          <button type="submit" class="btn btn-danger mb-1 btn-round">Log out</button>
+                      </form>
+                  </div>
+              </div>
+          </div>
+      </div>      
       </div>
       <footer class="footer" style="position: absolute; bottom: 0; width: -webkit-fill-available;">
         <div class="container-fluid">
@@ -139,7 +150,9 @@
     'resources/js/plugins/chartjs.min.js',
     'resources/js/plugins/bootstrap-notify.js',
     'resources/js/paper-dashboard.min.js?v=2.0.1',
-    'resources/js/admin-client.js'
+    'resources/js/admin-client.js',
+    'resources/js/confirm-delete.js',
+    'resources/js/confirm-logout.js'
     ])
 </body>
 

@@ -2,26 +2,23 @@
 
 @section('section')
 @if(session()->has('message'))
-    <div class="alert alert-success alert-dismissible fade show">
-        <button type="button" aria-hidden="true" class="close" data-dismiss="alert" aria-label="Close">
-            <i class="nc-icon nc-simple-remove"></i>
-        </button>
-        <span>{{ session()->get('message') }}</span>
-    </div>
+<div class="alert alert-success alert-dismissible text-white" role="alert">
+    <span class="text-sm">{{ session()->get('message') }}</span>
+    <button type="button" class="btn-close text-lg py-3 opacity-10" data-bs-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
 @endif
 @if ($errors->any())
-<div class="alert alert-danger alert-dismissible fade show">
-    <button type="button" aria-hidden="true" class="close" data-dismiss="alert" aria-label="Close">
-    <i class="nc-icon nc-simple-remove"></i>
-    </button>
-    <ul>
-    @foreach ($errors->all() as $error )
-        <li>
-        <span>{{$error}}</span>
-        </li>
-    @endforeach
-    </ul>
-</div>  
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        <ul class="mb-0">
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif  
 @endif
     <div class="container-fluid py-4">
         <div class="row">

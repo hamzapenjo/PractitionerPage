@@ -129,7 +129,8 @@
     'resources/js/plugins/perfect-scrollbar.jquery.min.js',
     'resources/js/plugins/chartjs.min.js',
     'resources/js/plugins/bootstrap-notify.js',
-    'resources/js/paper-dashboard.min.js?v=2.0.1'
+    'resources/js/paper-dashboard.min.js?v=2.0.1',
+    'resources/js/confirm-delete.js'
     ])
 </body>
 
