@@ -21,7 +21,7 @@ class ClientProfileController extends Controller
         return view('client.edit-client-profile', ['user' => $user, 'practice' => $practice]);
     }
 
-    public function storeClientProfile(Request $request)
+    public function storeClientProfile(ClientProfileStore $request)
     {
         $user = auth()->user();
         $user->first_name = $request->input('first_name');
