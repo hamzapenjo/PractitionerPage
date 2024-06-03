@@ -4,18 +4,21 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Requests\AdminClientStore;
 use App\Http\Requests\AdminFieldsStore;
 use App\Http\Requests\AdminPracticeStore;
-use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\AdminClientsController;
 use App\Http\Controllers\Admin\AdminPracticesController;
+use App\Http\Controllers\Client\ClientProfileController;
 use App\Http\Controllers\Practitioner\PracticeController;
 use App\Http\Controllers\Practitioner\PostClientController;
 use App\Http\Controllers\Admin\AdminPractitionersController;
+use App\Http\Controllers\Practitioner\EditPracticeController;
 use App\Http\Controllers\Admin\AdminFieldsOfPracticeController;
+use App\Http\Controllers\Practitioner\PractitionerProfileController;
 use App\Http\Controllers\Admin\DashboardController as AdminDashboardController;
 use App\Http\Controllers\Client\DashboardController as ClientDashboardController;
 use App\Http\Controllers\Practitioner\DashboardController as PractitionerDashboardController;
 use App\Http\Controllers\Practitioner\PractitionerClientController as PractitionerClientController;
+use App\Http\Controllers\ProfileController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -35,8 +38,17 @@ Route::prefix('practitioners')->middleware(['auth', 'practitioner'])->group(func
     Route::get('/practices/add-field', [PractitionerClientController::class, 'addField'])->name('add-field')->middleware(['auth', 'practitioner']);
     Route::post('/practices/store-field', [PractitionerClientController::class, 'storeField'])->name('store-field')->middleware(['auth', 'practitioner']);
     Route::get('/clients/{id}', [PractitionerClientController::class, 'showSingleClient'])->name('client-show')->middleware(['auth', 'practitioner']);
+    Route::get('/practitioner/edit-practitioner', [PractitionerProfileController::class, 'editPractitionerProfile'])->name('edit-practitioner-profile')->middleware(['auth', 'practitioner']);
+    Route::put('/practitioner/store-practitioner', [PractitionerProfileController::class, 'storePractitionerProfile'])->name('store-practitioner-profile')->middleware(['auth', 'practitioner']);
+    Route::get('/practices/edit-practice', [EditPracticeController::class, 'EditPractice'])->name('edit-practice-practitioner')->middleware(['auth', 'practitioner']);
+    Route::put('/practices/store-practice', [EditPracticeController::class, 'StorePractice'])->name('store-practice-practitioner')->middleware(['auth', 'practitioner']);
+
 });
-Route::get('/client-dashboard', [ClientDashboardController::class, 'index'])->name('client-dashboard')->middleware(['auth', 'client']);
+Route::prefix('clients')->middleware(['auth', 'client'])->group(function () {
+    Route::get('/dashboard', [ClientDashboardController::class, 'index'])->name('client-dashboard')->middleware(['auth', 'client']);
+    Route::get('/edit-client', [ClientProfileController::class, 'editClientProfile'])->name('edit-client-profile')->middleware(['auth', 'client']);
+    Route::put('/store-client', [ClientProfileController::class, 'storeClientProfile'])->name('store-client-profile')->middleware(['auth', 'client']);
+});
 
 Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {
     Route::get('/dashboard', [AdminDashboardController::class, 'index'])->name('admin-dashboard');
@@ -77,12 +89,6 @@ Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {
 });
 Route::get('/test', function(){
     return view('layouts.dashboard');
-});
-
-Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
 require __DIR__.'/auth.php';

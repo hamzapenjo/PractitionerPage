@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 class DashboardController extends Controller
 {
     public function index() {
-
+      view()->share('activePage', 'dashh');
       $user = auth()->user();
       $data['practitioner'] = $user->practicioner;
       $data['practice'] = $user->practicioner->practice;

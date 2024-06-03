@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers\Practitioner;
 
-use App\Http\Controllers\Controller;
+use App\Models\Practice;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class DashboardController extends Controller
 {
     public function index() {
       view()->share('activePage', 'dash');
-        return view('practitioner.dashboard');
+      return view('practitioner.dashboard');
       }
 }
