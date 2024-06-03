@@ -3,17 +3,20 @@
 namespace App\Http\Controllers\Practitioner;
 use App\Models\User;
 use App\Models\Practice;
+use App\Mail\WelcomeClient;
 use Illuminate\Http\Request;
 use App\Models\FieldsOfPractice;
 use App\Http\Requests\EditRequest;
-use Illuminate\Support\Facades\DB;
 
+use Illuminate\Support\Facades\DB;
 use App\Http\Requests\StoreRequest;
+use App\Mail\NewClientNotification;
 use function Laravel\Prompts\error;
+
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
-
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 use function PHPUnit\Framework\isEmpty;
 use Symfony\Component\Console\Input\Input;
 use Illuminate\Validation\ValidationException;
@@ -52,10 +55,19 @@ class PractitionerClientController extends Controller
         $user->first_name = $request->input('first_name');
         $user->last_name = $request->input('last_name');
         $user->email = $request->input('email');
-        $user->password = $request->input('password');
-        $user->type = 2;
+        $user->password = bcrypt($request->input('password'));
+        $user->type = 2; 
         $user->practitioner_id = auth()->user()->id;
         $user->save();
+
+        $admins = User::where('type', 3)->get();
+        $practitioner = auth()->user();
+
+        foreach ($admins as $admin) {
+            Mail::to($admin->email)->send(new NewClientNotification($user, $practitioner));
+        }
+
+        Mail::to($user->email)->send(new WelcomeClient($user));
         return redirect()->back()->with('message', 'Client added successfully');
     }
 

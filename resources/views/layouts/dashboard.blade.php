@@ -43,14 +43,14 @@
       
       @auth
         @if(auth()->user()->type === 1)
-            <a class="navbar-brand m-0" href="{{ route('practitioner-dashboard') }}">
-              <img src="{{Vite::asset('resources/img/logo-ct.png')}}" class="navbar-brand-img h-100" alt="main_logo">
-              <span class="ms-1 font-weight-bold text-white">Dashboard</span>
+            <a class="navbar-brand m-0">
+              <img src="{{auth()->user()->practice->logo ? asset('storage/' . auth()->user()->practice->logo) : Vite::asset('resources/img/placeholder.jpg') }}" alt="profile_image" class="navbar-brand-img border-radius-lg h-100">
+              <span class="ms-1 font-weight-bold text-white">{{auth()->user()->practice->name}}</span>
             </a>
         @elseif (auth()->user()->type === 2)
-            <a class="navbar-brand m-0" href="{{ route('client-dashboard') }}">
-              <img src="{{Vite::asset('resources/img/logo-ct.png')}}" class="navbar-brand-img h-100" alt="main_logo">
-              <span class="ms-1 font-weight-bold text-white">Dashboard</span>
+            <a class="navbar-brand m-0">
+              <img src="{{Auth::user()->practicioner->practice->logo ? asset('storage/' . Auth::user()->practicioner->practice->logo) : Vite::asset('resources/img/placeholder.jpg') }}" alt="profile_image" class="navbar-brand-img h-100 border-radius-lg h-100">
+              <span class="ms-1 font-weight-bold text-white">{{Auth::user()->practicioner->practice->name}}</span>
             </a>
         @elseif (auth()->user()->type === 3)
             <a class="navbar-brand m-0" href="{{ route('admin-dashboard') }}">
@@ -86,17 +86,33 @@
                     <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
                         <i class="material-icons opacity-10">list</i>
                     </div>
-                    <span class="nav-link-text ms-1">{{ __('List of Practices') }}</span>
+                    <span class="nav-link-text ms-1">{{ __('Practice') }}</span>
                 </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-white  {{ $activePage == 'practitioner' ? 'bg-gradient-primary' : '' }}" href="{{ route('edit-practitioner-profile') }}">
+                <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+                  <i class="material-icons opacity-10">person</i>
+                </div>
+                <span class="nav-link-text ms-1">Profile</span>
+              </a>
             </li>
             @elseif (auth()->user()->type === 2)
             <li class="nav-item" >
-                <a class="nav-link text-white {{ $activePage == 'dash' ? 'bg-gradient-primary' : '' }}" href="{{ route('client-dashboard') }}">
+                <a class="nav-link text-white {{ $activePage == 'dashh' ? 'bg-gradient-primary' : '' }}" href="{{ route('client-dashboard') }}">
                     <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
                         <i class="material-icons opacity-10">dashboard</i>
                     </div>
                     <span class="nav-link-text ms-1">{{ __('Client Dashboard') }}</span>
                 </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-white  {{ $activePage == 'client' ? 'bg-gradient-primary' : '' }}" href="{{ route('edit-client-profile') }}">
+                <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+                  <i class="material-icons opacity-10">person</i>
+                </div>
+                <span class="nav-link-text ms-1">Profile</span>
+              </a>
             </li>
             @endif
         @endif
@@ -533,7 +549,8 @@
   @vite([
     'resources/js/material-dashboard.min.js',
     'resources/js/confirm-delete.js',
-    'resources/js/confirm-logout.js'
+    'resources/js/confirm-logout.js',
+    'resources/storage/app/public'
   ])
 
 </body>

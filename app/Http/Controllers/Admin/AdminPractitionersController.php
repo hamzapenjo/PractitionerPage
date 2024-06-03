@@ -5,8 +5,11 @@ namespace App\Http\Controllers\Admin;
 use App\Models\User;
 use App\Models\Practice;
 use Illuminate\Http\Request;
+use App\Mail\EditPractitionerAdmin;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\WelcomePractitionerAdmin;
 use App\Http\Requests\AdminPracticeStore;
 use App\Http\Requests\AdminPractitionerStore;
 
@@ -40,6 +43,10 @@ class AdminPractitionersController extends Controller
         $practitioner->password = Hash::make('password');
         $practitioner->type = 1;
         $practitioner->save();
+
+        $practice = Practice::find($request->input('practices'));
+        Mail::to($practitioner->email)->send(new WelcomePractitionerAdmin($practice, $practitioner));
+
         return redirect()->back()->with('message',"Practitioner added successfully");
     }
 
@@ -72,6 +79,10 @@ class AdminPractitionersController extends Controller
         if ($request->password) {
             $practitioner->password = $request->password;
         }
+
+        $practice = Practice::find($request->input('practices'));
+        Mail::to($practitioner->email)->send(new EditPractitionerAdmin($practice, $practitioner));
+    
         return redirect()->back()->with('message',"Practitioner edited successfully");
     }
 
