@@ -19,6 +19,7 @@ use App\Http\Controllers\Client\DashboardController as ClientDashboardController
 use App\Http\Controllers\Practitioner\DashboardController as PractitionerDashboardController;
 use App\Http\Controllers\Practitioner\PractitionerClientController as PractitionerClientController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\UserExportController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -34,6 +35,9 @@ Route::prefix('practitioners')->middleware(['auth', 'practitioner'])->group(func
     Route::get('/clients/{id}/edit-client', [PractitionerClientController::class, 'editClientPractitioner'])->name('edit-client-practitioner')->middleware(['auth', 'practitioner']);
     Route::put('/clients/{id}/update-client', [PractitionerClientController::class, 'storeEditClient'])->name('store-edit-client-practitioner')->middleware(['auth', 'practitioner']);
     Route::delete('/clients/{id}/delete-client', [PractitionerClientController::class, 'deleteClientPractitioner'])->name('delete-client-practitioner')->middleware(['auth', 'practitioner']);
+
+    Route::get('clients/export-clients', [UserExportController::class, 'PracExportsClient'])->name('export-clients')->middleware(['auth', 'practitioner']);
+
     Route::get('/practices', [PracticeController::class, 'showPractice'])->name('practice')->middleware('auth', 'practitioner');
     Route::get('/practices/add-field', [PractitionerClientController::class, 'addField'])->name('add-field')->middleware(['auth', 'practitioner']);
     Route::post('/practices/store-field', [PractitionerClientController::class, 'storeField'])->name('store-field')->middleware(['auth', 'practitioner']);
@@ -86,7 +90,15 @@ Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {
     Route::get('/practitioners/{id}/edit-practitioner', [AdminPractitionersController::class, 'editPractitioner'])->name('edit-practitioner')->middleware(['auth', 'admin']);
     Route::put('/practitioners/{id}/update-practitioner', [AdminPractitionersController::class, 'storeEditPractitioner'])->name('store-edit-practitioner')->middleware(['auth', 'admin']);
     Route::delete('/practitioners/{id}/delete-practitioner', [AdminPractitionersController::class, 'deletePractitioner'])->name('delete-practitioner')->middleware(['auth', 'admin']);
+
+    Route::get('clients/export-clients', [UserExportController::class, 'AdminExportsClients'])->name('admin-export-clients')->middleware(['auth', 'admin']);
+
+    Route::get('practitioners/export-practitioners', [UserExportController::class, 'AdminExportsPractitioners'])->name('admin-export-practitioners')->middleware(['auth', 'admin']);
+
+    Route::get('practitioners/export-practices', [UserExportController::class, 'AdminExportsPractices'])->name('admin-export-practices')->middleware(['auth', 'admin']);
+
 });
+
 Route::get('/test', function(){
     return view('layouts.dashboard');
 });

@@ -26,7 +26,10 @@
         <div class="card">
             <div class="card-header d-flex justify-content-between">
                 <h4 class="card-title">Clients</h4>
-                <a class="btn btn-primary btn-round" href="{{ route('add-client') }}">New Client</a>
+                <div>
+                    <a class="btn btn-success btn-round" href="{{ route('add-client') }}">New Client</a>
+                    <a class="btn btn-warning btn-round" target="_blank" href="{{ route('admin-export-clients') }}">Export Clients</a>
+                </div>
             </div>
             <div class="card-body">
                 <div class="table-responsive">

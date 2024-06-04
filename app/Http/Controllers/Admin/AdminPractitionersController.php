@@ -98,6 +98,6 @@ class AdminPractitionersController extends Controller
             }
         }
         $practitionerr->delete();
-        return redirect()->back()->with('message',"Client deleted successfully");
+        return redirect()->back()->with('message',"Practitioner deleted successfully");
     }
 }

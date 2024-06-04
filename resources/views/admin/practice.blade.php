@@ -24,9 +24,12 @@
             </div>  
         @endif
         <div class="card">
-            <div class="card-header">
+            <div class="card-header d-flex justify-content-between">
                 <h4 class="card-title">Practices</h4>
-                <a class="btn btn-primary btn-round" href="{{ route('add-practice') }}">New Practice</a>
+                <div>
+                    <a class="btn btn-success btn-round" href="{{ route('add-practice') }}">New Practice</a>
+                    <a class="btn btn-warning btn-round" href="{{ route('admin-export-practices') }}">Export Practices</a>
+                </div>
             </div>
             <div class="card-body">
                 <div class="table-responsive">

@@ -18,6 +18,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use function PHPUnit\Framework\isEmpty;
+use Illuminate\Support\Facades\Storage;
+use App\Http\Requests\ClientProfileStore;
 use Symfony\Component\Console\Input\Input;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Pagination\LengthAwarePaginator;
@@ -79,16 +81,25 @@ class PractitionerClientController extends Controller
         return view('practitioner.edit-client', ['user'=>$user]);
     }
 
-    public function storeEditClient($id, EditRequest $request)
+    public function storeEditClient($id, Request $request)
     {
         $user = User::findOrFail($id);
         $user->first_name = $request->input('first_name');
         $user->last_name = $request->input('last_name');
         $user->email = $request->input('email');
-
         if ($request->password) {
             $user->password = $request->password;
         }
+
+        if ($request->hasFile('profile_picture')) {
+            if ($user->profile_picture) {
+                Storage::delete('public/' . $user->profile_picture);
+            }
+
+            $filePath = $request->file('profile_picture')->store('profile_pictures', 'public');
+            $user->profile_picture = $filePath;
+        }
+        
         $user->save();
         return redirect()->back()->with('message', 'Client edited successfully');
     }

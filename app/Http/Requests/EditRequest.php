@@ -25,7 +25,8 @@ class EditRequest extends FormRequest
         return [
             'first_name' => 'required',
             'last_name' => 'required',
-            'email' => ['required','email', Rule::unique('users')],
+            'email' => ['required','email'],
+            'profile_picture' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ];
     }
 }

@@ -28,7 +28,10 @@
       <div class="card">
         <div class="card-header d-flex justify-content-between">
           <h4 class="card-title">Practitioners</h4>
-          <a class="btn btn-primary btn-round" href="{{ route('add-practitioner') }} ">New Practitioner</a>
+          <div>
+            <a class="btn btn-success btn-round" href="{{ route('add-practitioner') }} ">New Practitioner</a>
+            <a class="btn btn-warning btn-round" target="_blank" href="{{ route('admin-export-practitioners') }} ">Export Practitioners</a>
+          </div>
         </div>
         <div class="card-body">
           <div class="table-responsive">

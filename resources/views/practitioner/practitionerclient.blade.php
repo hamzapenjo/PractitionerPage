@@ -26,7 +26,10 @@
                     <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
                         <div class="bg-gradient-primary shadow-primary border-radius-lg pt-4 pb-3 d-flex align-items-center justify-content-between px-3">
                             <h6 class="text-white text-capitalize ps-3">Clients List</h6>
-                            <a class="btn bg-gradient-success mb-0 toast-btn" href="{{ route('add-client-practitioner') }}">New Client</a>
+                            <div>
+                                <a class="btn bg-gradient-success mb-0 toast-btn" href="{{ route('add-client-practitioner') }}">New Client</a>
+                                <a class="btn bg-gradient-info mb-0 toast-btn" target="_blank" href="{{ route('export-clients') }}">Export Clients</a>
+                            </div>
                         </div>
                     </div>
                     <div class="card-body px-0 pb-2">
@@ -41,23 +44,17 @@
                                 <table class="table align-items-center mb-0">
                                     <thead>
                                         <tr>
-                                            <th
-                                                class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
+                                            <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-6">
                                                 First name</th>
-                                            <th
-                                                class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
+                                            <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
                                                 Last name</th>
-                                            <th
-                                                class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                            <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
                                                 Email</th>
-                                            <th
-                                                class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
+                                            <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
                                             </th>
-                                            <th
-                                                class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
+                                            <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
                                             </th>
-                                            <th
-                                                class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
+                                            <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
                                             </th>
                                         </tr>
                                     </thead>
@@ -66,6 +63,9 @@
                                             <tr>
                                                 <td>
                                                     <div class="d-flex px-2 py-1">
+                                                        <div>
+                                                            <img src="{{$client->profile_picture ? asset('storage/' . $client->profile_picture) : Vite::asset('resources/img/placeholder.jpg') }}" alt="profile_image" class="avatar avatar-sm me-3 border-radius-lg">
+                                                        </div>
                                                         <div class="d-flex flex-column justify-content-center">
                                                             <h6 class="mb-0 text-sm">{{ $client->first_name }}</h6>
                                                         </div>
@@ -76,8 +76,8 @@
                                                         <h6 class="mb-0 text-sm">{{ $client->last_name }}</h6>
                                                     </div>
                                                 </td>
-                                                <td class="align-middle text-center text-sm">
-                                                    <div class="d-flex flex-column justify-content-center">
+                                                <td>
+                                                    <div>
                                                         <h6 class="mb-0 text-sm">{{ $client->email }}</h6>
                                                     </div>
                                                 </td>
