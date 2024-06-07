@@ -74,7 +74,6 @@
     </div>
 </div>
 
-<!-- Delete Client Modal -->
 @foreach ($clients as $client)
 <div class="modal fade" id="deleteClientModal-{{ $client->id }}" tabindex="-1" aria-labelledby="deleteClientModalLabel-{{ $client->id }}" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">

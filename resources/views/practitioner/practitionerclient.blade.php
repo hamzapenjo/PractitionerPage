@@ -1,24 +1,7 @@
 @extends('layouts.dashboard')
 
 @section('section')
-@if(session()->has('message'))
-<div class="alert alert-success alert-dismissible text-white" role="alert">
-    <span class="text-sm">{{ session()->get('message') }}</span>
-    <button type="button" class="btn-close text-lg py-3 opacity-10" data-bs-dismiss="alert" aria-label="Close">
-      <span aria-hidden="true">&times;</span>
-    </button>
-  </div>
-@endif
-@if ($errors->any())
-    <div class="alert alert-danger alert-dismissible fade show" role="alert">
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-        <ul class="mb-0">
-            @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
-        </ul>
-    </div>
-@endif   
+@include('messages.all-messages')
     <div class="container-fluid py-4">
         <div class="row">
             <div class="col-12">
@@ -29,6 +12,7 @@
                             <div>
                                 <a class="btn bg-gradient-success mb-0 toast-btn" href="{{ route('add-client-practitioner') }}">New Client</a>
                                 <a class="btn bg-gradient-info mb-0 toast-btn" target="_blank" href="{{ route('export-clients') }}">Export Clients</a>
+                                <button type="button" class="btn bg-gradient-warning mb-0 toast-btn" data-toggle="modal" data-target="#importClientModal">Import Clients</button>
                             </div>
                         </div>
                     </div>
@@ -97,29 +81,6 @@
                                                                 data-client-id="{{ $client->id }}" data-client-name="{{ $client->first_name }} {{ $client->last_name }}">
                                                             Delete
                                                         </button>
-                                                        <div id="deleteModal-{{ $client->id }}" class="modal fade" tabindex="-1" aria-labelledby="deleteModalLabel-{{ $client->id }}" aria-hidden="true">
-                                                            <div class="modal-dialog">
-                                                                <div class="modal-content">
-                                                                    <div class="modal-header">
-                                                                        <h5 class="modal-title" id="deleteModalLabel-{{ $client->id }}">Confirm Delete</h5>
-                                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                                                    </div>
-                                                                    <div class="modal-body">
-                                                                        <p>Are you sure you want to delete <strong>{{ $client->first_name }} {{ $client->last_name }}</strong>?</p>
-                                                                    </div>
-                                                                    <div class="modal-footer">
-                                                                        <form>
-                                                                        <button type="button" class="btn btn-info mb-1" data-bs-dismiss="modal">Cancel</button>
-                                                                        </form>
-                                                                        <form id="delete-client-form-{{ $client->id }}" method="post" action="{{ route('delete-client-practitioner', ['id'=> $client->id]) }}">
-                                                                            @csrf
-                                                                            @method('DELETE')
-                                                                            <button type="submit" class="btn btn-danger mb-1">Delete</button>
-                                                                        </form>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
                                                     </div>
                                                 </td>
                                             </tr>
@@ -136,4 +97,56 @@
             </div>
         </div>
     </div>
+
+@foreach ($clients as $client)
+<div id="deleteModal-{{ $client->id }}" class="modal fade" tabindex="-1" aria-labelledby="deleteModalLabel-{{ $client->id }}" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteModalLabel-{{ $client->id }}">Confirm Delete</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>Are you sure you want to delete <strong>{{ $client->first_name }} {{ $client->last_name }}</strong>?</p>
+            </div>
+            <div class="modal-footer">
+                <form>
+                <button type="button" class="btn btn-info mb-1" data-bs-dismiss="modal">Cancel</button>
+                </form>
+                <form id="delete-client-form-{{ $client->id }}" method="post" action="{{ route('delete-client-practitioner', ['id'=> $client->id]) }}">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit" class="btn btn-danger mb-1">Delete</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+@endforeach
+
+<div class="modal fade" id="importClientModal" tabindex="-1" aria-labelledby="importClientModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="importClientModalLabel">Import Clients</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form action="{{ route('prac-import-clients') }}" method="POST" enctype="multipart/form-data">
+                @csrf
+                <div class="modal-body">
+                    <div class="form-group">
+                        <input type="file" class="form-control-file" id="file" name="file" required>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-info mb-1" data-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-danger mb-1">Import</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
 @endsection

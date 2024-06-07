@@ -2,28 +2,7 @@
 
 @section('section')
 <div class="col-md-12">
-  @if(session()->has('message'))
-    <div class="alert alert-success alert-dismissible fade show">
-      <button type="button" aria-hidden="true" class="close" data-dismiss="alert" aria-label="Close">
-        <i class="nc-icon nc-simple-remove"></i>
-      </button>
-      <span>{{ session()->get('message') }}</span>
-    </div>
-  @endif
-  @if ($errors->any())
-    <div class="alert alert-danger alert-dismissible fade show">
-      <button type="button" aria-hidden="true" class="close" data-dismiss="alert" aria-label="Close">
-        <i class="nc-icon nc-simple-remove"></i>
-      </button>
-      <ul>
-        @foreach ($errors->all() as $error )
-          <li>
-            <span>{{$error}}</span>
-          </li>
-        @endforeach
-      </ul>
-    </div>  
-  @endif
+  @include('messages.all-messages')
   <div class="card card-user">
     <div class="card-header">
       <h5 class="card-title">Add Practitioner</h5>

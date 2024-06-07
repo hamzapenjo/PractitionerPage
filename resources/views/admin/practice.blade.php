@@ -3,26 +3,7 @@
 @section('section')
 <div class="row">
     <div class="col-md-12">
-        @if(session()->has('message'))
-            <div class="alert alert-success alert-dismissible fade show">
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <i class="nc-icon nc-simple-remove"></i>
-                </button>
-                <span>{{ session()->get('message') }}</span>
-            </div>
-        @endif
-        @if ($errors->any())
-            <div class="alert alert-danger alert-dismissible fade show">
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <i class="nc-icon nc-simple-remove"></i>
-                </button>
-                <ul>
-                    @foreach ($errors->all() as $error )
-                        <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
-            </div>  
-        @endif
+        @include('messages.all-messages')
         <div class="card">
             <div class="card-header d-flex justify-content-between">
                 <h4 class="card-title">Practices</h4>
